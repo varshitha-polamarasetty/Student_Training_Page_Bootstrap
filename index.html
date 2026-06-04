@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexWork - Launch Your Career</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --indigo-brand: #7b7dfc;
+            --indigo-brand-dark: #6567df;
+            --indigo-brand-glow: rgba(123, 125, 252, 0.15);
+            --amber-brand: #ffcd00;
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+            --slate-400: #94a3b8;
+            --slate-100: #f1f5f9;
+        }
+
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Lato', sans-serif; 
+            background-color: #FAFAFC; 
+            color: var(--slate-800);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            font-size: 1.15rem; /* Large, modern base font size */
+        }
+
+        .font-heading { font-family: 'Lato', sans-serif; }
+        .font-accent { font-family: 'Lato', sans-serif; }
+        .fw-extrabold { font-weight: 900; } 
+
+        .text-indigo-brand { color: var(--indigo-brand); }
+        .bg-indigo-brand { background-color: var(--indigo-brand); }
+        .bg-amber-brand { background-color: var(--amber-brand); }
+        
+        /* Navbar Custom Sizing */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--slate-100);
+            min-height: 90px;
+        }
+        .navbar-brand img {
+            max-height: 60px !important;
+        }
+        .nav-link {
+            font-size: 1.2rem !important;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 3px;
+            background: var(--indigo-brand);
+            transition: .3s;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* Buttons & Interactions */
+        .btn-indigo {
+            background: linear-gradient(135deg, #7b7dfc, #8b5cf6);
+            color: white;
+            border: none;
+            padding: 16px 36px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 6px 20px rgba(123,125,252,0.3);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .btn-indigo:hover {
+            background: linear-gradient(135deg, #6567df, #7c3aed);
+            transform: translateY(-5px);
+            color: white;
+            box-shadow: 0 15px 30px rgba(123, 125, 252, 0.45);
+        }
+
+        .btn-amber {
+            background-color: var(--amber-brand);
+            color: var(--slate-900);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 12px rgba(255,205,0,.2);
+        }
+        .btn-amber:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(255,205,0,.45);
+        }
+
+        .btn-interactive {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-interactive:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* Ambient Backgrounds & Zoom Layouts */
+        .card-shadow {
+            box-shadow: 0 15px 35px rgba(15,23,42,.05), 0 5px 15px rgba(15,23,42,.03);
+        }        
+        .zoom-hover-effect {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+        }
+        .zoom-hover-effect:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(123,125,252,.18), 0 12px 30px rgba(15,23,42,.08);
+        }
+
+        .img-zoom-parent { overflow: hidden; }
+        .img-zoom-parent .img-target {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .img-zoom-parent:hover .img-target {
+            transform: scale(1.1);
+        }
+
+        /* Elite Cinema Animations */
+        @keyframes customFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes customFloatDelayed {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(15px); }
+        }
+        @keyframes avatarFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+        @keyframes avatarFloatDelayed {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(12px) rotate(-1deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-float { animation: customFloat 4s ease-in-out infinite; }
+        .animate-float-delayed { animation: customFloatDelayed 4.5s ease-in-out infinite; }
+        .animate-avatar-float { animation: avatarFloat 5s ease-in-out infinite; }
+        .animate-avatar-float-delayed { animation: avatarFloatDelayed 5.5s ease-in-out infinite; }
+        .animate-glow { animation: pulseGlow 6s ease-in-out infinite; }
+        .reveal-fade-in { animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+        /* Hero Image Layout Wrapper */
+        .hero-circles-wrapper {
+            position: relative;
+            width: 550px;
+            height: 550px;
+            max-width: 100%;
+        }
+        .circle-top {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            border: 6px solid white;
+            box-shadow: 0px 15px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            background: #F3F1FF;
+            z-index: 2;
+        }
+        .circle-bottom {
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            width: 290px;
+            height: 290px;
+            border-radius: 50%;
+            border: 6px solid white;
+            box-shadow: 0px 15px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            background: #FFF7E3;
+            z-index: 3;
+        }
+
+        .hero-float-icon { 
+            box-shadow: 0 15px 35px rgba(123,125,252,.2); 
+            padding: 20px !important;
+            font-size: 1.5rem !important;
+            border-radius: 18px !important;
+        }
+
+        /* "Theory is Boring" Premium Hover Styling Updates */
+        .feature-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            border: 2px solid var(--slate-100) !important;
+            padding: 35px !important;
+        }
+        .feature-icon-wrapper {
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            background: rgba(123,125,252,0.1);
+        }
+        .feature-card h5, .feature-card p, .feature-card .feature-icon-wrapper i {
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Brand Yellow & Purple Hover Dynamic Transformation */
+        .feature-card:hover {
+            background-color: var(--indigo-brand) !important;
+            border-color: var(--indigo-brand) !important;
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(123, 125, 252, 0.35);
+        }
+        .feature-card:hover h5 {
+            color: var(--amber-brand) !important; /* Shifting Header to Bright Yellow */
+        }
+        .feature-card:hover p {
+            color: #f1f5f9 !important; /* Premium legible soft white */
+        }
+        .feature-card:hover .feature-icon-wrapper {
+            background-color: var(--amber-brand) !important; /* Shifting Icon container to Yellow */
+        }
+        .feature-card:hover .feature-icon-wrapper i {
+            color: var(--indigo-brand) !important; /* Shifting Graphic back to Purple contrast */
+        }
+
+        /* Specialty Custom Card Framing */
+        .card-custom { 
+            position:relative; 
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+            border: 2px solid var(--slate-100);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+        .card-custom::before {
+            content:'';
+            position:absolute;
+            left:0;
+            bottom:0;
+            width:100%;
+            height:6px;
+            background:linear-gradient(90deg, #7b7dfc, #ffcd00);
+            z-index: 10;
+        }
+
+        /* Interactive Path/Journey Components */
+        .path-step { position: relative; }
+        .path-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -25px;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--indigo-brand), var(--amber-brand));
+            z-index: 1;
+        }
+
+        /* Accordions and Community Elements */
+        .accordion-button {
+            font-size: 1.25rem !important;
+            padding: 20px 25px;
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: transparent;
+            color: var(--indigo-brand);
+            box-shadow: none;
+        }
+        .accordion-button:focus { box-shadow: none; }
+        .accordion-item {
+            border: 2px solid var(--slate-100);
+            border-radius: 16px !important;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+            background: white;
+            transition: all .3s ease;
+        }
+        .accordion-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(123,125,252,.12);
+        }
+
+        .community-card {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.15);
+            padding: 24px !important;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .community-card:hover {
+            background-color: #ffffff !important;
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .community-card:hover .card-icon { color: var(--indigo-brand) !important; }
+        .community-card:hover .card-title { color: var(--slate-900) !important; }
+        .community-card:hover .card-text { color: var(--slate-600) !important; }
+
+        @keyframes loveGlow {
+            0%,100%{ text-shadow: 0 0 8px rgba(123,125,252,.4); }
+            50%{ text-shadow: 0 0 12px rgba(123,125,252,.8), 0 0 30px rgba(123,125,252,.4); }
+        }
+        .love-glow { animation: loveGlow 3s ease-in-out infinite; font-weight: 700; }
+        .purple-stars { color: var(--amber-brand); text-shadow: 0 0 8px rgba(255,205,0,0.5); }
+
+        body::before {
+            content:''; position:fixed; top:-200px; left:-200px; width:600px; height:600px;
+            background: radial-gradient(circle, rgba(123,125,252,.08), transparent 70%); pointer-events:none; z-index:-1;
+        }
+        body::after {
+            content:''; position:fixed; bottom:-200px; right:-200px; width:600px; height:600px;
+            background: radial-gradient(circle, rgba(255,205,0,.08), transparent 70%); pointer-events:none; z-index:-1;
+        }
+
+        @media (max-width: 991.98px) {
+            .path-step:not(:last-child)::after { display: none; }
+            .hero-circles-wrapper { width: 100%; height: 450px; }
+            .circle-top { width: 280px; height: 280px; }
+            .circle-bottom { width: 220px; height: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-xl">
+            <a class="navbar-brand" href="#">
+                <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1779554636/flexwork_logo_xarrbu.png" class="img-fluid" alt="FlexWork">
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <i class="fa-solid fa-bars fs-3 text-secondary"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav mx-auto mb-3 mb-lg-0 gap-2 gap-lg-5 text-center">
+                    <li class="nav-item"><a class="nav-link fw-bold text-secondary px-2" href="#">Our Services</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-secondary px-2" href="#">Who We Are</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-secondary px-2" href="#">How We Work</a></li>
+                    <li class="nav-item"><a class="nav-link fw-bold text-secondary px-2" href="#">Job Postings</a></li>
+                </ul>
+                <div class="d-flex flex-row align-items-center gap-4 justify-content-center">
+                    <button class="btn btn-link text-decoration-none fw-bold text-slate-800 p-0 m-0 text-nowrap fs-5">Log In</button>
+                    <button class="btn-amber">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="container-xl py-5 my-4 position-relative">
+        <div class="row align-items-center gy-5">
+            <div class="col-12 col-lg-6 reveal-fade-in">
+                <div class="d-inline-flex align-items-center gap-2 px-4 py-2.5 rounded-pill mb-4 font-heading btn-interactive" style="background: rgba(123,125,252,0.12); border: 2px solid rgba(123,125,252,0.25); color: var(--indigo-brand);">
+                    <span class="bg-indigo-brand text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 26px; height: 26px; font-size: 12px;"><i class="fa-solid fa-graduation-cap"></i></span>
+                    <span class="fw-bold fs-6">Build Skills. Launch Careers.</span>
+                </div>
+                <h1 class="display-3 fw-extrabold text-slate-900 tracking-tight font-heading mb-4" style="line-height: 1.15;">
+                    Launch Your Career.<br>Master Real-World <br>
+                    <span class="text-indigo-brand d-inline-block font-accent fw-semibold fst-italic zoom-hover-effect" style="transform-origin: left;">Tech Skills.</span>
+                </h1>
+                <p class="text-secondary fs-4 max-w-xl mb-5" style="max-width: 580px; line-height: 1.6;">
+                    Go beyond theory with industry-focused learning designed to help students and fresh graduates become job-ready through real projects, expert mentorship, and practical experience.
+                </p>
+                <div class="d-flex flex-wrap gap-4 pt-2 mb-5">
+                    <button class="btn-indigo font-heading d-flex align-items-center gap-3">Start Learning <i class="fa-solid fa-arrow-right fs-5"></i></button>
+                    <button class="btn btn-outline-light border-3 text-slate-800 border-secondary-subtle px-5 py-3 rounded-3 btn-interactive font-heading fw-bold fs-5" style="color: #0f172a;">Explore Programs</button>
+                </div>
+                
+                <div class="d-flex align-items-center gap-4 pt-4 border-top border-2 border-light-subtle">
+                    <div class="d-flex align-items-center">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" class="rounded-circle border border-3 border-white btn-interactive object-fit-cover" style="width: 46px; height: 46px; margin-right: -12px;">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" class="rounded-circle border border-3 border-white btn-interactive object-fit-cover" style="width: 46px; height: 46px; margin-right: -12px;">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" class="rounded-circle border border-3 border-white btn-interactive object-fit-cover" style="width: 46px; height: 46px;">
+                    </div>
+                    <div class="fs-5 fw-semibold text-secondary"><span class="text-dark fw-bold">10K+ students</span> already learning with FlexWork.</div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 d-flex justify-content-center position-relative select-none">
+                <div class="position-absolute bg-light p-3 rounded-4 shadow-sm animate-float text-indigo-brand fs-4 hero-float-icon" style="top: 5%; left: 10%; z-index: 20;"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="position-absolute p-3 rounded-4 shadow-sm animate-float-delayed fs-4 hero-float-icon" style="bottom: 10%; left: 0%; z-index: 20; background-color: rgba(255, 205, 0, 0.15); color: #b38f00;"><i class="fa-solid fa-chart-simple"></i></div>
+                <div class="position-absolute p-3 rounded-4 shadow-sm animate-float-delayed text-purple-600 fs-4 hero-float-icon" style="top: 15%; right: 0%; z-index: 20; background-color: #f3e8ff;"><i class="fa-solid fa-code"></i></div>
+                <div class="position-absolute p-3 rounded-4 shadow-sm animate-float text-indigo-brand fs-4 hero-float-icon" style="bottom: 20%; right: 5%; z-index: 20; background-color: #eff6ff;"><i class="fa-solid fa-globe"></i></div>
+                
+                <div class="hero-circles-wrapper">
+                    <div class="circle-top img-zoom-parent animate-avatar-float">
+                        <div class="position-absolute inset-0 bg-indigo-brand opacity-10"></div>
+                        <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1780158317/download_jlzsac.png" class="w-100 h-100 object-fit-cover img-target">
+                    </div>
+                    <div class="circle-bottom img-zoom-parent animate-avatar-float-delayed">
+                        <div class="position-absolute inset-0 bg-amber-brand opacity-10"></div>
+                        <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1780158559/image-removebg-preview_wozws7.png" class="w-100 h-100 object-fit-cover img-target">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl py-5" data-aos="fade-up">
+        <div class="text-center mx-auto mb-5 pb-3" style="max-width: 750px;">
+            <h2 class="fw-extrabold text-slate-900 font-heading tracking-tight display-5 mb-3">Explore Career-Focused Specializations</h2>
+            <p class="text-secondary fs-5">Built to help students learn in-demand skills and launch real careers.</p>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-center gap-3 mb-5 font-heading">
+            <button class="btn bg-indigo-brand text-white rounded-pill px-4 py-2.5 fw-bold shadow-sm btn-interactive fs-6">UI/UX Design</button>
+            <button class="btn bg-white border text-secondary rounded-pill px-4 py-2.5 fw-semibold btn-interactive fs-6">Digital Marketing</button>
+            <button class="btn bg-white border text-secondary rounded-pill px-4 py-2.5 fw-semibold btn-interactive fs-6">Data Analytics</button>
+            <button class="btn bg-white border text-secondary rounded-pill px-4 py-2.5 fw-semibold btn-interactive fs-6">Full Stack Development</button>
+            <button class="btn bg-white border text-secondary rounded-pill px-4 py-2.5 fw-semibold btn-interactive fs-6">Cyber Security</button>
+            <button class="btn bg-white border text-secondary rounded-pill px-4 py-2.5 fw-semibold btn-interactive fs-6">Business & Sales</button>
+            <button class="btn bg-white border text-secondary rounded-pill px-4 py-2.5 fw-semibold btn-interactive fs-6">AI & Automation</button>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            <div class="col">
+                <div class="card-custom zoom-hover-effect img-zoom-parent d-flex flex-column h-100">
+                    <div class="position-relative" style="height: 200px; background-color: var(--slate-100);">
+                        <img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?auto=format&fit=crop&w=400&q=80" class="w-100 h-100 object-fit-cover img-target">
+                        <span class="position-absolute top-0 end-0 mt-3 me-3 bg-amber-brand text-dark fw-extrabold small px-3 py-1.5 rounded font-heading" style="font-size: 12px;">20K+ Enrolled</span>
+                    </div>
+                    <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+                        <div>
+                            <div class="rounded-3 d-flex align-items-center justify-content-center text-indigo-brand mb-3" style="width: 42px; height: 42px; background: rgba(123,125,252,0.1);"><i class="fa-solid fa-palette fs-5"></i></div>
+                            <h4 class="fw-bold text-slate-900 font-heading fs-4">UI/UX Design</h4>
+                            <p class="text-secondary fs-6 mb-0">Create user-first digital experiences that people love to use.</p>
+                        </div>
+                        <a href="#" class="text-indigo-brand fw-bold text-decoration-none fs-6 d-flex align-items-center gap-2 pt-4 font-heading">Enroll Now <i class="fa-solid fa-arrow-right" style="font-size: 12px;"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card-custom zoom-hover-effect img-zoom-parent d-flex flex-column h-100">
+                    <div class="position-relative" style="height: 200px; background-color: var(--slate-100);">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" class="w-100 h-100 object-fit-cover img-target">
+                        <span class="position-absolute top-0 end-0 mt-3 me-3 bg-indigo-brand text-white fw-extrabold small px-3 py-1.5 rounded font-heading" style="font-size: 12px;">30K+ Enrolled</span>
+                    </div>
+                    <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+                        <div>
+                            <div class="rounded-3 d-flex align-items-center justify-content-center text-purple-600 mb-3" style="width: 42px; height: 42px; background: #faf5ff;"><i class="fa-solid fa-bullhorn fs-5"></i></div>
+                            <h4 class="fw-bold text-slate-900 font-heading fs-4">Digital Marketing</h4>
+                            <p class="text-secondary fs-6 mb-0">Learn SEO, social media, paid ads & content strategies that convert.</p>
+                        </div>
+                        <a href="#" class="text-indigo-brand fw-bold text-decoration-none fs-6 d-flex align-items-center gap-2 pt-4 font-heading">Join Program <i class="fa-solid fa-arrow-right" style="font-size: 12px;"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card-custom zoom-hover-effect img-zoom-parent d-flex flex-column h-100">
+                    <div class="position-relative" style="height: 200px; background-color: var(--slate-100);">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&q=80" class="w-100 h-100 object-fit-cover img-target">
+                        <span class="position-absolute top-0 end-0 mt-3 me-3 bg-amber-brand text-dark fw-extrabold small px-3 py-1.5 rounded font-heading" style="font-size: 12px;">25K+ Enrolled</span>
+                    </div>
+                    <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+                        <div>
+                            <div class="rounded-3 d-flex align-items-center justify-content-center text-warning mb-3" style="width: 42px; height: 42px; background: #fffbeb;"><i class="fa-solid fa-chart-line fs-5"></i></div>
+                            <h4 class="fw-bold text-slate-900 font-heading fs-4">Data Analytics</h4>
+                            <p class="text-secondary fs-6 mb-0">Work with real datasets and turn numbers into meaningful insights.</p>
+                        </div>
+                        <a href="#" class="text-indigo-brand fw-bold text-decoration-none fs-6 d-flex align-items-center gap-2 pt-4 font-heading">Start Learning <i class="fa-solid fa-arrow-right" style="font-size: 12px;"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card-custom zoom-hover-effect img-zoom-parent d-flex flex-column h-100">
+                    <div class="position-relative" style="height: 200px; background-color: var(--slate-100);">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400&q=80" class="w-100 h-100 object-fit-cover img-target">
+                        <span class="position-absolute top-0 end-0 mt-3 me-3 bg-indigo-brand text-white fw-extrabold small px-3 py-1.5 rounded font-heading" style="font-size: 12px;">35K+ Enrolled</span>
+                    </div>
+                    <div class="p-4 d-flex flex-column flex-grow-1 justify-content-between">
+                        <div>
+                            <div class="rounded-3 d-flex align-items-center justify-content-center text-primary mb-3" style="width: 42px; height: 42px; background: #eff6ff;"><i class="fa-solid fa-code fs-5"></i></div>
+                            <h4 class="fw-bold text-slate-900 font-heading fs-4">Full Stack Development</h4>
+                            <p class="text-secondary fs-6 mb-0">Build modern web applications from front-end to back-end.</p>
+                        </div>
+                        <a href="#" class="text-indigo-brand fw-bold text-decoration-none fs-6 d-flex align-items-center gap-2 pt-4 font-heading">Enroll Now <i class="fa-solid fa-arrow-right" style="font-size: 12px;"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl py-5" data-aos="fade-right">
+        <div class="rounded-5 p-4 p-md-5 border" style="background-color:#f1f0ff; border-color: rgba(123, 125, 252, 0.15) !important;">
+            <div class="row align-items-center g-5">
+                <div class="col-12 col-lg-5">
+                    <h2 class="fw-extrabold text-slate-900 tracking-tight font-heading display-5 mb-4" style="line-height: 1.2;">Theory is boring.<br>Real projects aren't.</h2>
+                    <p class="text-secondary fs-5 max-w-sm mb-4" style="max-width: 365px;">We bridge the gap between academic theory and industry reality through immersive learning.</p>
+                    <div class="pt-2 img-zoom-parent d-inline-block rounded-4">
+                        <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1780161808/ChatGPT_Image_May_30_2026_10_51_36_PM_mtpoc8.png" class="img-fluid rounded-4 border border-white shadow-sm img-target" style="max-width: 320px;" alt="Projects">
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-7">
+                    <div class="row g-4">
+                        <div class="col-12 col-sm-6">
+                            <div class="bg-white rounded-4 border card-shadow feature-card">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center text-indigo-brand fs-4 flex-shrink-0 mb-3 feature-icon-wrapper"><i class="fa-solid fa-layer-group"></i></div>
+                                <div>
+                                    <h5 class="fw-bold text-slate-900 font-heading mb-2">Industry Skills</h5>
+                                    <p class="text-secondary mb-0 fs-6" style="line-height: 1.6;">Learn the exact tools and frameworks used by top tech companies today.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="bg-white rounded-4 border card-shadow feature-card">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center text-indigo-brand fs-4 flex-shrink-0 mb-3 feature-icon-wrapper"><i class="fa-solid fa-user-tie"></i></div>
+                                <div>
+                                    <h5 class="fw-bold text-slate-900 font-heading mb-2">Expert Mentorship</h5>
+                                    <p class="text-secondary mb-0 fs-6" style="line-height: 1.6;">Weekly 1:1 sessions with pros currently working at FAANG and startups.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="bg-white rounded-4 border card-shadow feature-card">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center text-indigo-brand fs-4 flex-shrink-0 mb-3 feature-icon-wrapper"><i class="fa-solid fa-laptop-code"></i></div>
+                                <div>
+                                    <h5 class="fw-bold text-slate-900 font-heading mb-2">Hands-On Projects</h5>
+                                    <p class="text-secondary mb-0 fs-6" style="line-height: 1.6;">Build real, deployable applications & a strong portfolio that stands out.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="bg-white rounded-4 border card-shadow feature-card">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center text-indigo-brand fs-4 flex-shrink-0 mb-3 feature-icon-wrapper"><i class="fa-solid fa-briefcase"></i></div>
+                                <div>
+                                    <h5 class="fw-bold text-slate-900 font-heading mb-2">Career Support</h5>
+                                    <p class="text-secondary mb-0 fs-6" style="line-height: 1.6;">Resume building, mock interviews, and access to our hiring network.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl py-5" data-aos="zoom-in">
+        <div class="bg-white border card-shadow rounded-5 overflow-hidden img-zoom-parent">
+            <div class="row align-items-stretch g-0">
+                <div class="col-12 col-lg-6 p-4 p-md-5 d-flex flex-column justify-content-center">
+                    <h2 class="fw-extrabold text-slate-900 tracking-tight font-heading mb-4 display-6">Industry-Led Career Accelerator</h2>
+                    <p class="text-secondary mb-5 fs-5">Gain practical experience through real-world projects, mentorship, and hands-on learning designed to prepare you for today's fast-moving industries.</p>
+                    
+                    <div class="row g-4 mb-5">
+                        <div class="col-12 col-sm-6 d-flex gap-3">
+                            <div class="rounded-3 d-flex align-items-center justify-content-center text-indigo-brand flex-shrink-0" style="width: 46px; height: 46px; background: rgba(123,125,252,0.1);"><i class="fa-solid fa-id-card-clip fs-5"></i></div>
+                            <div>
+                                <h5 class="fw-bold text-slate-900 font-heading mb-1" style="font-size: 1.15rem;">Mentorship</h5>
+                                <p class="text-secondary fs-6 mb-0">Learn from experienced industry professionals and career experts.</p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 d-flex gap-3">
+                            <div class="rounded-3 d-flex align-items-center justify-content-center text-purple-600 flex-shrink-0" style="width: 46px; height: 46px; background: #faf5ff;"><i class="fa-solid fa-folder-open fs-5"></i></div>
+                            <div>
+                                <h5 class="fw-bold text-slate-900 font-heading mb-1" style="font-size: 1.15rem;">Program Access</h5>
+                                <p class="text-secondary fs-6 mb-0">Live sessions, project-based learning, portfolio guidance, and career support.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button class="btn-indigo font-heading d-inline-flex align-items-center gap-3 text-white">Start Your Journey <i class="fa-solid fa-chevron-right" style="font-size:12px;"></i></button>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-lg-6 position-relative" style="background-color: #0f172a; min-height: 400px;">
+                    <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1780161296/Screenshot_2026-05-30_224344_qne3cz.png" class="w-100 h-100 object-fit-cover img-target" style="opacity: 0.4; mix-blend-mode: luminosity;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl py-5" data-aos="fade-up">
+        <div class="text-center mb-5 mt-3">
+            <h2 class="fw-extrabold text-slate-900 font-heading display-5">The Path to Your First Big Role</h2>
+        </div>
+
+        <div class="row g-4 align-items-stretch pt-4">
+            <div class="col-12 col-md-6 col-lg-3 path-step">
+                <div class="rounded-5 p-4 text-center shadow-sm h-100 d-flex flex-column align-items-center zoom-hover-effect position-relative" style="background-color: #F3F1FF; padding-top: 50px !important;">
+                    <div class="position-absolute top-0 start-50 translate-middle rounded-circle bg-indigo-brand text-white d-flex align-items-center justify-content-center fw-bold font-heading shadow-sm" style="width:64px;height:64px;font-size:22px;">01</div>
+                    <div class="mt-4 mb-3"><i class="fa-solid fa-bullseye display-4 text-indigo-brand"></i></div>
+                    <h4 class="fw-bold text-slate-900 mb-3 font-heading">Choose Path</h4>
+                    <p class="text-secondary fs-6 mb-0 flex-grow-1">Select a career path aligned with your interests, strengths, and future goals.</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 path-step">
+                <div class="rounded-5 p-4 text-center shadow-sm h-100 d-flex flex-column align-items-center zoom-hover-effect position-relative" style="background-color: #FFF7E3; padding-top: 50px !important;">
+                    <div class="position-absolute top-0 start-50 translate-middle rounded-circle text-white d-flex align-items-center justify-content-center fw-bold font-heading shadow-sm" style="width:64px;height:64px;font-size:22px;background-color:#FFC83D;">02</div>
+                    <div class="mt-4 mb-3"><i class="fa-solid fa-book-open display-4" style="color:#FFC83D;"></i></div>
+                    <h4 class="fw-bold text-slate-900 mb-3 font-heading">Learn Through Projects</h4>
+                    <p class="text-secondary fs-6 mb-0 flex-grow-1">Build practical skills with hands-on assignments, live sessions, and real-world tasks.</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3 path-step">
+                <div class="rounded-5 p-4 text-center shadow-sm h-100 d-flex flex-column align-items-center zoom-hover-effect position-relative" style="background-color: #F3F1FF; padding-top: 50px !important;">
+                    <div class="position-absolute top-0 start-50 translate-middle rounded-circle text-white d-flex align-items-center justify-content-center fw-bold font-heading shadow-sm" style="width:64px;height:64px;font-size:22px;background-color:#8B5CF6;">03</div>
+                    <div class="mt-4 mb-3"><i class="fa-solid fa-briefcase display-4" style="color:#8B5CF6;"></i></div>
+                    <h4 class="fw-bold text-slate-900 mb-3 font-heading">Build Your Portfolio</h4>
+                    <p class="text-secondary fs-6 mb-0 flex-grow-1">Create industry-ready projects that showcase your skills and stand out to recruiters.</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="rounded-5 p-4 text-center shadow-sm h-100 d-flex flex-column align-items-center zoom-hover-effect position-relative" style="background-color: #FFF7E3; padding-top: 50px !important;">
+                    <div class="position-absolute top-0 start-50 translate-middle rounded-circle text-white d-flex align-items-center justify-content-center fw-bold font-heading shadow-sm" style="width:64px;height:64px;font-size:22px;background-color:#FFC83D;">04</div>
+                    <div class="mt-4 mb-3"><i class="fa-solid fa-chart-line display-4" style="color:#FFC83D;"></i></div>
+                    <h4 class="fw-bold text-slate-900 mb-3 font-heading">Start Your Career</h4>
+                    <p class="text-secondary fs-6 mb-0 flex-grow-1">Connect with hiring partners, internships, freelance opportunities, and career advancement through FlexWork.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl py-5" data-aos="fade-up">
+        <div class="row align-items-center g-5">
+            <div class="col-12 col-lg-4">
+                <h2 class="fw-extrabold text-slate-900 tracking-tight font-heading display-5 mb-4">Student Success Stories</h2>
+                <p class="text-secondary fs-5">Hear from learners who gained real skills, built confidence, and started their careers with FlexWork.</p>
+                <div class="d-flex gap-3 pt-2">
+                    <button class="btn bg-white border rounded-circle d-flex align-items-center justify-content-center text-secondary btn-interactive" style="width: 46px; height: 46px;"><i class="fa-solid fa-chevron-left fs-5"></i></button>
+                    <button class="btn bg-white border rounded-circle d-flex align-items-center justify-content-center text-secondary btn-interactive" style="width: 46px; height: 46px;"><i class="fa-solid fa-chevron-right fs-5"></i></button>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-8">
+                <div class="row g-4">
+                    <div class="col-12 col-md-6">
+                        <div class="bg-white p-4 rounded-4 border card-shadow h-100 d-flex flex-column justify-content-between zoom-hover-effect">
+                            <div class="mb-4">
+                                <div class="d-flex gap-1 purple-stars mb-3">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-secondary fst-italic mb-0 fs-5" style="line-height: 1.6;">
+                                    "FlexWork helped me move beyond theory and actually work on real projects. The experience gave me the confidence to apply for roles I never thought I could."
+                                </p>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=100&q=80" class="rounded-circle object-fit-cover" style="width: 46px; height: 46px;">
+                                <div>
+                                    <h5 class="fw-bold text-slate-900 mb-0 font-heading" style="font-size: 1.1rem;">Adarsh Verma</h5>
+                                    <p class="text-body-tertiary mb-0" style="font-size: 13px;">UI/UX Designer</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="bg-white p-4 rounded-4 border card-shadow h-100 d-flex flex-column justify-content-between zoom-hover-effect">
+                            <div class="mb-4">
+                                <div class="d-flex gap-1 purple-stars mb-3">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-secondary fst-italic mb-0 fs-5" style="line-height: 1.6;">
+                                    "The mentorship and hands-on learning made a huge difference for me. I built a strong portfolio and started getting freelance opportunities even before completing the program."
+                                </p>
+                            </div>
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=100&q=80" class="rounded-circle object-fit-cover" style="width: 46px; height: 46px;">
+                                <div>
+                                    <h5 class="fw-bold text-slate-900 mb-0 font-heading" style="font-size: 1.1rem;">Sneha Iyer</h5>
+                                    <p class="text-body-tertiary mb-0" style="font-size: 13px;">Digital Marketing Associate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-xl py-5" data-aos="zoom-in-up">
+        <div class="bg-indigo-brand rounded-5 overflow-hidden text-white">
+            <div class="row g-0 align-items-stretch">
+                <div class="col-12 col-lg-5 p-4 p-md-5 d-flex flex-column justify-content-start gap-4">
+                    <div>
+                        <h2 class="fw-extrabold font-heading tracking-tight mb-3 display-5">Join a Community Built for Growth</h2>
+                        <p class="text-white-50 fs-5 mb-0" style="max-width: 420px; line-height: 1.6;">Learn, collaborate, and connect with students, mentors, creators, and industry professionals building the future together.</p>
+                    </div>
+
+                    <div class="d-flex flex-column gap-3">
+                        <div class="p-3 rounded-4 d-flex gap-3 community-card">
+                            <div class="fs-4 text-white flex-shrink-0 card-icon"><i class="fa-solid fa-users"></i></div>
+                            <div>
+                                <h5 class="fw-bold mb-1 card-title" style="font-size: 1.2rem;">Collaborative Learning</h5>
+                                <p class="text-white-50 mb-0 card-text" style="font-size: 14px;">Join live projects, hackathons, and peer learning.</p>
+                            </div>
+                        </div>
+                        <div class="p-3 rounded-4 d-flex gap-3 community-card">
+                            <div class="fs-4 text-white flex-shrink-0 card-icon"><i class="fa-solid fa-video"></i></div>
+                            <div>
+                                <h5 class="fw-bold mb-1 card-title" style="font-size: 1.2rem;">Live Industry Sessions</h5>
+                                <p class="text-white-50 mb-0 card-text" style="font-size: 14px;">Attend expert-led workshops, portfolio reviews, and career-focused sessions.</p>
+                            </div>
+                        </div>
+                        <div class="p-3 rounded-4 d-flex gap-3 community-card">
+                            <div class="fs-4 text-white flex-shrink-0 card-icon"><i class="fa-solid fa-network-wired"></i></div>
+                            <div>
+                                <h5 class="fw-bold mb-1 card-title" style="font-size: 1.2rem;">Career Networking</h5>
+                                <p class="text-white-50 mb-0 card-text" style="font-size: 14px;">Connect with mentors, hiring partners, creators, and like-minded learners.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-7 p-4 p-md-5 d-flex align-items-center justify-content-center" style="background: rgba(0,0,0,0.1);">
+                    <div class="row g-3 w-100">
+                        <div class="col-6 d-flex flex-column gap-3">
+                            <div class="rounded-4 overflow-hidden img-zoom-parent"><img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1780162971/ChatGPT_Image_May_30_2026_11_11_10_PM_ojyqp5.png" class="w-100 img-fluid img-target"></div>
+                            <div class="rounded-4 overflow-hidden img-zoom-parent"><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=300&q=80" class="w-100 object-fit-cover img-target" style="aspect-ratio: 4/3;"></div>
+                        </div>
+                        <div class="col-6 d-flex flex-column gap-3">
+                            <div class="rounded-4 overflow-hidden img-zoom-parent"><img src="https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&w=300&q=80" class="w-100 object-fit-cover img-target" style="aspect-ratio: 4/3;"></div>
+                            <div class="rounded-4 overflow-hidden img-zoom-parent"><img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1780162902/ChatGPT_Image_May_30_2026_11_10_23_PM_lpmqiu.png" class="w-100 object-fit-cover img-target" style="aspect-ratio: 1/1;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5" data-aos="fade-up">
+        <div class="container" style="max-width: 800px;">
+            <div class="text-center mb-5 pb-2">
+                <h2 class="fw-extrabold text-slate-900 font-heading display-5">Got Questions?</h2>
+            </div>
+
+            <div class="accordion card-shadow" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold text-slate-800 font-heading collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">Do I need prior experience to join?</button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-secondary">No prior technical background is necessary! Our programs are fully designed to guide beginners from foundational basics up to comprehensive real-world execution.</div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold text-slate-800 font-heading collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">Are the programs focused on practical learning?</button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-secondary">Absolutely. We ditch classic tests in favor of direct build milestones, actual company case briefs, and direct portfolio additions.</div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold text-slate-800 font-heading collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">Will I receive a certificate after completion?</button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-secondary">Yes, you will earn a verifiable completion credential along with a comprehensive portfolio breakdown reviewed by current industry experts.</div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button fw-bold text-slate-800 font-heading collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">How will FlexWork help with my career growth?</button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-secondary">We assist directly with custom placement introductions, resume polish sprints, specialized mock interviews, and internal hiring access pools.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-top pt-5 pb-4" style="color: var(--indigo-brand);">
+        <div class="container-xl">
+            <div class="row gy-4 mb-5">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <img src="https://res.cloudinary.com/dxcwpasvu/image/upload/v1779554636/flexwork_logo_xarrbu.png" class="mb-4" width="210" height="70">
+                    <p class="fs-5 text-indigo-brand mb-4 fw-medium">Master skills. Build portfolio. Launch careers.</p>
+                    <div class="d-flex gap-4">
+                        <a href="#" class="text-indigo-brand btn-interactive"><i class="fa-brands fa-linkedin-in fs-4"></i></a>
+                        <a href="#" class="text-indigo-brand btn-interactive"><i class="fa-brands fa-instagram fs-4"></i></a>
+                        <a href="#" class="text-indigo-brand btn-interactive"><i class="fa-brands fa-youtube fs-4"></i></a>
+                        <a href="#" class="text-indigo-brand btn-interactive"><i class="fa-brands fa-twitter fs-4"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-5">
+                    <div class="row g-4 pt-2">
+                        <div class="col-4 d-flex flex-column gap-3 fs-5 font-medium">
+                            <a href="#" class="text-decoration-none text-indigo-brand btn-interactive">Home</a>
+                            <a href="#" class="text-decoration-none text-indigo-brand btn-interactive">Our Services</a>
+                            <a href="#" class="text-decoration-none text-indigo-brand btn-interactive">About Us</a>
+                        </div>
+                        <div class="col-4 d-flex flex-column gap-3 fs-5 font-medium">
+                            <a href="#" class="text-decoration-none text-indigo-brand btn-interactive">How We Work</a>
+                            <a href="#" class="text-decoration-none text-indigo-brand btn-interactive">Job Postings</a>
+                            <a href="#" class="text-decoration-none text-indigo-brand btn-interactive">Pricing</a>
+                        </div>
+                        <div class="col-4 d-flex flex-column gap-3 fs-5 font-medium">
+                            <a href="#" class="text-decoration-none text-indigo-brand btn-interactive">FAQ</a>
+                            <a href="#" class="text-decoration-none text-indigo-brand btn-interactive">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-3">
+                    <h5 class="fw-bold text-uppercase tracking-wider font-heading fs-6 mb-3">Subscribe to our newsletter</h5>
+                    <div class="input-group">
+                        <input type="email" placeholder="Enter Your Email" class="form-control bg-light border-light-subtle rounded-start-3 px-3 py-3" style="font-size: 16px; color: var(--indigo-brand);">
+                        <button class="btn btn-amber rounded-end-3 px-4"><i class="fa-solid fa-chevron-right text-dark fs-5"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 border-top border-2 border-light-subtle d-flex flex-wrap justify-content-between align-items-center gap-3 fs-5 font-medium">
+                <div class="love-glow">&copy; 2026 FlexWork. All rights reserved. Made with <i class="fa-solid fa-heart text-danger mx-1"></i> in India</div>                
+                <div class="d-flex gap-4">
+                    <a href="#" class="text-decoration-none text-indigo-brand opacity-75 btn-interactive">Privacy Policy</a>
+                    <a href="#" class="text-decoration-none text-indigo-brand opacity-75 btn-interactive">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
+</body>
+</html>
